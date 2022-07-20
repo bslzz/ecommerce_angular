@@ -1,0 +1,32 @@
+<div class="row pb-4" *ngIf="products$ | async">
+  <div class="col-sm-6 col-md-4 py-3" *ngFor="let product of products$ | async">
+    <div class="row">
+      <div class="col">
+        <h5>{{ getCategoryName(product.categoryId) }}</h5>
+      </div>
+    </div>
+    <div class="card shadow bg-body rounded p-1" style="width: 18rem">
+      <img
+        *ngIf="product.productImages.length > 0"
+        [src]="getProductImage(product.productImages[0])"
+        class="card-img-top card-image"
+        [alt]="product.productImages[0].mime"
+      />
+      <div class="card-body">
+        <p class="card-text" [title]="product.name">
+          {{ shortenName(product.name) }}
+        </p>
+        <div class="row">
+          <div class="col-6">
+            <a href="#" class="btn btn-sm btn-outline-warning">View Details</a>
+          </div>
+          <div class="col-6">
+            <a href="#" class="btn btn-sm btn-outline-success text-nowrap"
+              >Add to Wishlist</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
