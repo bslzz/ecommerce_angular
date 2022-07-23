@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { firstValueFrom, Observable, tap } from 'rxjs';
 import { ICategory } from 'src/app/models/category.model';
 import { IProduct, IProductImage } from 'src/app/models/product.model';
-import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-products',
@@ -10,31 +9,17 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  public products$!: Observable<IProduct[]>;
-  public categories$!: Observable<ICategory[]>;
+  @Input() public products: IProduct[] = [];
+  @Input() public categories: ICategory[] = [];
+
   public categoriesList: ICategory[] = [];
-  public products: IProduct[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.getAllProducts();
-    this.getAllCategories();
-  }
-
-  public getAllProducts(): void {
-    this.products$ = this.productService
-      .getAllProducts()
-      .pipe(tap((products: IProduct[]) => (this.products = products)));
-  }
-
-  public async getAllCategories(): Promise<void> {
-    this.categories$ = this.productService.getAllCategories();
-    this.categoriesList = await firstValueFrom(this.categories$);
-  }
+  ngOnInit(): void {}
 
   public getCategoryName(categoryId: number) {
-    const category = this.categoriesList.find(
+    const category = this.categories.find(
       (category) => category.id === categoryId
     );
     return category?.name || '';

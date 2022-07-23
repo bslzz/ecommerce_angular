@@ -1,0 +1,8 @@
+<ng-container *ngIf="categories$ | async as categories">
+  <app-product-view-filter
+    [categories]="categories"
+    (filterProducts)="filterProducts($event)"
+  ></app-product-view-filter>
+
+  <app-products [products]="products" [categories]="categories"></app-products>
+</ng-container>

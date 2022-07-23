@@ -4,30 +4,36 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpEventType,
 } from '@angular/common/http';
-import { catchError, Observable, tap, throwError } from 'rxjs';
-import { ProductService } from './shared/services/product.service';
+import { finalize, Observable, tap, throwError } from 'rxjs';
+import { LoaderService } from './services/common/loader.service';
 
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-  constructor(private productService: ProductService) {}
+  public totalRequests = 0;
+  public completedRequests = 0;
+
+  constructor(private loaderService: LoaderService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    this.loaderService.toggleLoader(true);
+    this.totalRequests++;
     return next.handle(request).pipe(
-      tap((event) => {
-        this.productService.toggleLoader(true);
-        if (event.type === HttpEventType.Response) {
-          if (event.status === 200) {
-            this.productService.toggleLoader(false);
-          }
+      finalize(() => {
+        this.completedRequests++;
+        if (this.totalRequests === this.completedRequests) {
+          this.loaderService.toggleLoader(false);
+          this.completedRequests = 0;
+          this.totalRequests = 0;
         }
       }),
-      catchError((error) => {
-        return throwError(() => new Error(error));
+      tap({
+        next: () => console.log('[next] Called'),
+        error: (error) => throwError(() => new Error(error)),
+        complete: () => console.log('[tap complete] Not called'),
       })
     );
   }

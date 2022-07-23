@@ -3,7 +3,7 @@ export interface IProduct {
   name: string;
   descriptions: string;
   price: number;
-  availableSince: string;
+  availableSince: Date;
   isActive: boolean;
   categoryId: number;
   productImages: IProductImage[];

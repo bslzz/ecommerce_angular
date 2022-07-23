@@ -3,7 +3,6 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { ICategory } from 'src/app/models/category.model';
 
 import { ProductService } from './product.service';
 
@@ -33,19 +32,6 @@ describe('ProductService', () => {
     },
   ];
 
-  let Categories = [
-    {
-      id: 1,
-      name: 'ram',
-      isActive: true,
-    },
-    {
-      id: 2,
-      name: 'shyam',
-      isActive: false,
-    },
-  ];
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -70,21 +56,6 @@ describe('ProductService', () => {
         'https://lsc-essential-products.azurewebsites.net/api/product/all'
       );
       req.flush(Products);
-      expect(req.request.method).toEqual('GET');
-    });
-  });
-
-  describe('getAllCategories()', () => {
-    it('should return all categories when getAllCategories() is called', (done: DoneFn) => {
-      productService.getAllCategories().subscribe((data: ICategory[]) => {
-        expect(data).toEqual(Categories);
-        done();
-      });
-
-      const req = httpTestingController.expectOne(
-        'https://lsc-essential-products.azurewebsites.net/api/category/all'
-      );
-      req.flush(Categories);
       expect(req.request.method).toEqual('GET');
     });
   });

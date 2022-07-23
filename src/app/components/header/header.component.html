@@ -14,12 +14,31 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav me-auto">
-        <a class="nav-link active" aria-current="page" routerLink="/home"
+        <a
+          class="nav-link active"
+          aria-current="page"
+          [routerLink]="['/home']"
+          routerLinkActive="router-link-active"
           >Home</a
         >
-        <a class="nav-link" routerLink="/products">Products</a>
-        <a class="nav-link" routerLink="/wishlist">My Wishlist</a>
-        <a class="nav-link" routerLink="/manage">Manage Products</a>
+        <a
+          class="nav-link"
+          [routerLink]="['/products']"
+          routerLinkActive="router-link-active"
+          >Products</a
+        >
+        <a
+          class="nav-link"
+          [routerLink]="['/products/wishlist']"
+          routerLinkActive="router-link-active"
+          >My Wishlist</a
+        >
+        <a
+          class="nav-link"
+          [routerLink]="['/manage']"
+          routerLinkActive="router-link-active"
+          >Manage Products</a
+        >
       </div>
       <form class="d-flex">
         <input

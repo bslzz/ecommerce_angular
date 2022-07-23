@@ -12,6 +12,11 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent,
   },
+  {
+    path: 'products',
+    loadChildren: () =>
+      import('./shared/products/products.module').then((m) => m.ProductsModule),
+  },
 ];
 
 @NgModule({

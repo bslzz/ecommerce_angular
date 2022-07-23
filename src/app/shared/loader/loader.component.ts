@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ProductService } from '../services/product.service';
+import { LoaderService } from 'src/app/services/common/loader.service';
 
 @Component({
   selector: 'app-loader',
@@ -9,8 +9,8 @@ import { ProductService } from '../services/product.service';
 })
 export class LoaderComponent implements OnInit {
   public loader$!: Observable<boolean>;
-  constructor(private productService: ProductService) {
-    this.loader$ = this.productService.loader$;
+  constructor(private loaderService: LoaderService) {
+    this.loader$ = this.loaderService.loader$;
   }
 
   ngOnInit(): void {}

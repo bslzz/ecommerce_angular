@@ -1,5 +1,5 @@
-<div class="row pb-4" *ngIf="products$ | async">
-  <div class="col-sm-6 col-md-4 py-3" *ngFor="let product of products$ | async">
+<div class="row pb-4">
+  <div class="col-sm-6 col-md-4 py-3" *ngFor="let product of products">
     <div class="row">
       <div class="col">
         <h5>{{ getCategoryName(product.categoryId) }}</h5>
